@@ -1,0 +1,778 @@
+Absolutely. Since you want a **README file as your actual learning note**, I’ll make it beginner-friendly and cover:
+
+* React **Class-Based Components**
+* **Props**
+* **State**
+* How `App.js`, `News.js`, `NewsItem.js`, and `SampleOutput.js` work together
+* Fetching **Top Headlines from NewsAPI**
+* Passing data using props
+* Updating data using state
+* A simple explanation in **Easy English + Roman Urdu**
+
+### README — React Class Components, Props & State
+
+# React Learning Notes — Class Components, Props & State
+
+Today I learned how to use **Class-Based Components**, **Props**, and **State** in React.
+
+I also practiced fetching **Top Headlines** from a News API and displaying the news using different React components.
+
+---
+
+## 1. Class-Based Component
+
+A Class-Based Component is a React component created using a JavaScript class.
+
+### Example:
+
+
+import React, { Component } from "react";
+
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>My News App</h1>
+      </div>
+    );
+  }
+}
+
+
+### Easy Explanation
+In a class component:
+
+* `Component` comes from React.
+* `extends Component` means our class becomes a React component.
+* `render()` contains the JSX that we want to display.
+
+
+
+# 2. Props
+
+**Props = Properties**
+
+Props are used to **send data from one component to another component**.
+
+Usually, data is passed from a **parent component to a child component**.
+
+For example:
+
+
+<NewsItem
+  title="Pakistan wins the match"
+  description="Pakistan won the match by 5 wickets"
+/>
+
+
+Here:
+
+* `title` is a prop.
+* `description` is a prop.
+
+The `NewsItem` component can receive these values.
+
+---
+
+## 3. How to Receive Props
+
+In a class-based component, props can be accessed using:
+
+
+this.props
+
+
+Example:
+class NewsItem extends Component {
+  render() {
+    return (
+      <div>
+        <h3>{this.props.title}</h3>
+        <p>{this.props.description}</p>
+      </div>
+    );
+  }
+}
+]
+
+### Roman Urdu
+
+Agar parent component child ko data bhej raha hai:
+
+
+<NewsItem title="Hello" />
+
+
+To child component mein hum us data ko:
+
+
+this.props.title
+
+
+se access karenge.
+
+---
+
+# 4. Why Do We Use Props?
+
+Props ka main purpose hai **components ke darmiyan data transfer karna**.
+
+For example:
+
+
+App.js
+   ↓
+News.js
+   ↓
+NewsItem.js
+
+
+`App.js` data de sakta hai `News.js` ko.
+
+`News.js` further data `NewsItem.js` ko props ke through de sakta hai.
+
+---
+
+# 5. State
+
+State is used to store **data that can change inside a component**.
+
+In a class-based component, state is written like this:
+
+```jsx
+state = {
+  articles: [],
+  loading: false
+};
+```
+
+For example:
+
+```jsx
+class News extends Component {
+
+  state = {
+    articles: [],
+    loading: false
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>News</h1>
+      </div>
+    );
+  }
+}
+```
+
+---
+
+# 6. Why Do We Use State?
+
+State is useful when the data can change.
+
+For example, initially:
+
+```text
+articles = []
+```
+
+After getting data from the API:
+
+```text
+articles = [news1, news2, news3, ...]
+```
+
+React updates the UI when the state changes.
+
+### Roman Urdu
+
+State ko aap component ki **memory** samajh sakte ho.
+
+Pehle API se koi news nahi ayi:
+
+```text
+articles = []
+```
+
+API se news aa gayi:
+
+```text
+articles = [article1, article2, article3]
+```
+
+State update hone ke baad React screen ko bhi update kar deta hai.
+
+---
+
+# 7. Props vs State
+
+| Props                            | State                              |
+| -------------------------------- | ---------------------------------- |
+| Data receive/send karne ke liye  | Data store karne ke liye           |
+| Parent se child ko data deta hai | Component ke andar data rakhta hai |
+| Usually read-only hota hai       | Change ho sakta hai                |
+| `this.props` se access           | `this.state` se access             |
+| Parent control karta hai         | Component manage karta hai         |
+
+### Easy Example
+
+```text
+Props = Parcel 📦
+State = Component ki memory 🧠
+```
+
+Props ke through component ko data milta hai.
+
+State ke andar component apna changing data rakhta hai.
+
+---
+
+# 8. My News App Structure
+
+I worked with these files:
+
+```text
+src/
+│
+├── App.js
+├── News.js
+├── NewsItem.js
+└── SampleOutput.js
+```
+
+Each file has a different responsibility.
+
+---
+
+# 9. App.js
+
+`App.js` is the main component.
+
+It can render the `News` component.
+
+Example:
+
+```jsx
+import React, { Component } from "react";
+import News from "./News";
+
+export default class App extends Component {
+
+  render() {
+    return (
+      <div>
+        <News />
+      </div>
+    );
+  }
+}
+```
+
+### What is happening?
+
+```text
+App.js
+   ↓
+News.js
+```
+
+App is displaying the News component.
+
+---
+
+# 10. News.js
+
+`News.js` is responsible for getting the news from the API.
+
+It can maintain the news articles inside its state.
+
+Example:
+
+```jsx
+import React, { Component } from "react";
+import NewsItem from "./NewsItem";
+
+export default class News extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      articles: [],
+      loading: false
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Top Headlines</h1>
+
+        {this.state.articles.map((article) => {
+
+          return (
+            <NewsItem
+              title={article.title}
+              description={article.description}
+              imageUrl={article.urlToImage}
+              newsUrl={article.url}
+            />
+          );
+
+        })}
+      </div>
+    );
+  }
+}
+```
+
+---
+
+# 11. NewsItem.js
+
+`NewsItem.js` displays one individual news article.
+
+Example:
+
+```jsx
+import React, { Component } from "react";
+
+export default class NewsItem extends Component {
+
+  render() {
+
+    return (
+      <div>
+
+        <img
+          src={this.props.imageUrl}
+          alt="news"
+        />
+
+        <h3>
+          {this.props.title}
+        </h3>
+
+        <p>
+          {this.props.description}
+        </p>
+
+        <a href={this.props.newsUrl}>
+          Read More
+        </a>
+
+      </div>
+    );
+  }
+}
+```
+
+Here we are receiving information through props.
+
+---
+
+# 12. Understanding Props in NewsItem
+
+Suppose `News.js` sends:
+
+```jsx
+<NewsItem
+  title="Pakistan wins the match"
+  description="Pakistan won the match."
+  imageUrl="image.jpg"
+  newsUrl="https://example.com"
+/>
+```
+
+Then `NewsItem.js` receives:
+
+```jsx
+this.props.title
+```
+
+```jsx
+this.props.description
+```
+
+```jsx
+this.props.imageUrl
+```
+
+```jsx
+this.props.newsUrl
+```
+
+So:
+
+```text
+News.js
+     ↓
+     Props
+     ↓
+NewsItem.js
+```
+
+---
+
+# 13. Very Important: How Props Work
+
+Think about props like this:
+
+```jsx
+<NewsItem title="Hello World" />
+```
+
+The parent is saying:
+
+> "NewsItem, here is some data for you."
+
+The child receives it as:
+
+```jsx
+this.props.title
+```
+
+So:
+
+```text
+Parent
+  |
+  | title = "Hello World"
+  ↓
+Child
+  |
+  ↓
+this.props.title
+```
+
+---
+
+# 14. Using Props with API Data
+
+The real power comes when we get data from an API.
+
+For example, the API may return:
+
+```json
+{
+  "title": "New technology launched",
+  "description": "A new technology has been launched.",
+  "urlToImage": "image.jpg",
+  "url": "https://example.com"
+}
+```
+
+We can pass this information to `NewsItem`:
+
+```jsx
+<NewsItem
+  title={article.title}
+  description={article.description}
+  imageUrl={article.urlToImage}
+  newsUrl={article.url}
+/>
+```
+
+Notice that we are using:
+
+```jsx
+{article.title}
+```
+
+instead of writing the title manually.
+
+---
+
+# 15. Mapping News Articles
+
+If the API gives us many articles:
+
+```text
+Article 1
+Article 2
+Article 3
+Article 4
+Article 5
+```
+
+We can use `.map()`.
+
+Example:
+
+```jsx
+this.state.articles.map((article) => {
+
+  return (
+    <NewsItem
+      title={article.title}
+      description={article.description}
+    />
+  );
+
+})
+```
+
+`.map()` goes through every article and creates a `NewsItem`.
+
+So:
+
+```text
+5 articles
+   ↓
+.map()
+   ↓
+5 NewsItem components
+```
+
+---
+
+# 16. News API
+
+I also practiced using a **News API** to get Top Headlines.
+
+The API provides news data such as:
+
+* Title
+* Description
+* Image
+* Author
+* Published date
+* News URL
+
+The application fetches the news and then displays it through React components.
+
+---
+
+# 17. API Key
+
+An API key is used to authenticate the application with the news service.
+
+Example structure:
+
+```text
+https://newsapi.org/v2/top-headlines
+```
+
+The request can contain information such as:
+
+```text
+country
+category
+apiKey
+```
+
+Example:
+
+```text
+top-headlines?country=us&apiKey=YOUR_API_KEY
+```
+
+### Important
+
+I should **not upload my real API key to GitHub**.
+
+Instead, I should keep it in an environment variable such as:
+
+```text
+.env
+```
+
+and add `.env` to `.gitignore`.
+
+---
+
+# 18. SampleOutput.js
+
+`SampleOutput.js` can be used to practice or display sample news output.
+
+For example:
+
+```jsx
+const sampleOutput = [
+  {
+    title: "First News",
+    description: "This is the first news."
+  },
+  {
+    title: "Second News",
+    description: "This is the second news."
+  }
+];
+
+export default sampleOutput;
+```
+
+This allows me to test my UI even without getting real API data.
+
+---
+
+# 19. Complete Data Flow
+
+The complete flow of my News application is:
+
+```text
+News API
+   ↓
+News.js
+   ↓
+State
+   ↓
+articles
+   ↓
+.map()
+   ↓
+Props
+   ↓
+NewsItem.js
+   ↓
+News displayed on screen
+```
+
+This is the most important concept I learned today.
+
+---
+
+# 20. Simple Real-Life Example
+
+Imagine a teacher gives information to a student.
+
+Teacher:
+
+```text
+Name = Aleeza
+Course = React
+```
+
+The teacher passes this information to the student.
+
+In React:
+
+```jsx
+<Student
+  name="Aleeza"
+  course="React"
+/>
+```
+
+The student receives it:
+
+```jsx
+this.props.name
+```
+
+```jsx
+this.props.course
+```
+
+So:
+
+```text
+Parent
+  ↓
+Props
+  ↓
+Child
+```
+
+---
+
+# 21. State Example
+
+Suppose we have a counter:
+
+```jsx
+state = {
+  count: 0
+};
+```
+
+Initially:
+
+```text
+count = 0
+```
+
+When the user clicks a button:
+
+```text
+count = 1
+```
+
+Then:
+
+```text
+count = 2
+```
+
+The state changes and React updates the UI.
+
+---
+
+# 22. Important Difference
+
+Remember this simple rule:
+
+### Props
+
+**Props = data coming INTO a component**
+
+```jsx
+this.props.title
+```
+
+### State
+
+**State = data stored/managed BY the component**
+
+```jsx
+this.state.articles
+```
+
+---
+
+# 23. What I Learned Today
+
+Today I learned:
+
+* Class-Based Components
+* `extends Component`
+* `render()`
+* Props
+* `this.props`
+* State
+* `this.state`
+* Passing data between components
+* Using `.map()`
+* Creating reusable `NewsItem` components
+* Fetching data from an API
+* Displaying Top Headlines
+* Understanding API data flow
+* Using `News.js`, `NewsItem.js`, `App.js`, and `SampleOutput.js`
+* Difference between Props and State
+* Basic API-key security
+
+---
+
+# 24. My Main Learning
+
+The most important concept I learned today is:
+
+```text
+API
+ ↓
+State
+ ↓
+Map
+ ↓
+Props
+ ↓
+Component
+ ↓
+UI
+```
+
+Props are used to **pass data**, while state is used to **store and manage changing data**.
+
+This makes React applications easier to organize because every component can have its own responsibility.
