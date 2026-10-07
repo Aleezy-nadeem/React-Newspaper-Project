@@ -9,7 +9,15 @@ let {title, description, imageUrl, newsUrl} = this.props;
     return (
       <div className="my-3">
       <div className="card" style={{ width: '18rem' }}>
-  <img src={imageUrl} className="card-img-top" alt="..."/>
+  <img
+    src={imageUrl}
+    className="card-img-top"
+    alt="news"
+    onError={(event) => {
+      event.currentTarget.onerror = null;
+      event.currentTarget.src = "/logo192.png";
+    }}
+  />
   <div className="card-body">
     <h5 className="card-title">{title}...</h5>
     <p className="card-text">{description}...</p>
@@ -17,7 +25,7 @@ let {title, description, imageUrl, newsUrl} = this.props;
     <a href={newsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Read More</a>
   </div>
 </div>
-      </div>
+</div>
     )
   }
 }
