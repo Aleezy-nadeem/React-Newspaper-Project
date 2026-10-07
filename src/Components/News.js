@@ -27,7 +27,8 @@ constructor(){
         <h2>NewsMonkey - Top Headlines</h2>
    <div className="row">
         <div className="col-md-4">
-            <NewsItems title="News" description="This is a news item" imageUrl="https://resizer.ladbiblegroup.com/ogimage/v3/assets/blta90d05ad41a54a71/bltcca9128b7de79d43/6a82be58f2fc6f234842e460/Hasan_Mahmud_of_Bangladesh_celebrates_after_taking_the_wicket_of_Travis_Head_of_Australia_during_day_three_of_the_First_Test_Match_in_the_series_between_Australia_and_Bangladesh_at_Marrara_Stadium_on_August_15_2026_in_D.jpg"/>
+            <NewsItems title="News" description="This is a news item" imageUrl="https://resizer.ladbiblegroup.com/ogimage/v3/assets/blta90d05ad41a54a71/bltcca9128b7de79d43/6a82be58f2fc6f234842e460/Hasan_Mahmud_of_Bangladesh_celebrates_after_taking_the_wicket_of_Travis_Head_of_Australia_during_day_three_of_the_First_Test_Match_in_the_series_between_Australia_and_Bangladesh_at_Marrara_Stadium_on_August_15_2026_in_D.jpg"
+            newsUrl="todo"/>
         </div>
 
         <div className="col-md-4">
