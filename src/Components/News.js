@@ -74,7 +74,8 @@ async componentDidMount(){
     {this.state.loading && <Spinner/>}
         <h2></h2>
    <div className="row">
-     {this.state.articles.map((element)=>{
+    {/* render the articles when the conition id fasle */}
+     {!this.state.loading && this.state.articles.map((element)=>{
          return  <div className="col-md-4"  key={element.url} >
           {/* this is a ternary operator  whwew any value in the json file data is null or undefined */}
             <NewsItems title={element.title?element.title.slice(0, 40):" "} description={element.description?element.description.slice(0, 85):" "} imageUrl={!element.urlToImage?"https://s.yimg.com/lo/mysterio/api/02d0e8a8c5a628e037fc3129f22df7f2ec333f4dd3554a8c69f80911b58be8ae/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_wall_street_journal_hosted_996%2F995e44f0f71683a1c773757e477aa28c.jpg":element.urlToImage} newsUrl={element.url}/>
