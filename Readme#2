@@ -566,7 +566,7 @@ apiKey
 Example:
 
 ```text
-top-headlines?country=us&apiKey=YOUR_API_KEY
+top-headlines?country=${this.props.country}&apiKey=category=${this.props.category}YOUR_API_KEY
 ```
 
 ### Important
